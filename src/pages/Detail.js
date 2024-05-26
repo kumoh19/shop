@@ -1,5 +1,6 @@
+import { tab } from "@testing-library/user-event/dist/tab";
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Nav, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -22,6 +23,8 @@ function Detail(props) {
     return x.id == id;
   });
   let [count, setCount] = useState(0);
+
+    //------------------------------2초동안 팝업 띄우기----------------------------------------
   let [alert, setShowAlert] = useState(true);
 
   useEffect(() => { 
@@ -34,9 +37,13 @@ function Detail(props) {
   //count라는 state가 변할 때만 실행됌
   //useEffect동작 전에 실행 되는 return ()=>{} clean up function
 
+  //------------------------------input박스에 문자 입력하면 alert경고 창 띄우기----------------------------------------
   let [num, setNum] = useState('')
 
   useEffect(()=>{ if (isNaN(num) == true){ window.alert('그러지마세요')}}, [num])
+
+  //------------------------------탭 ui----------------------------------------
+    let [tab, setTab] = useState(0)
 
 
   return (
@@ -59,14 +66,38 @@ function Detail(props) {
         </Col>
         <Col>
         <input onChange={ (e) => { setNum(e.target.value) } } />
-          <h4>{product.title}</h4>
-          <p>{product.content}</p>
-          <p>{product.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+        <h4>{product.title}</h4>
+        <p>{product.content}</p>
+        <p>{product.price}</p>
+        <button className="btn btn-danger">주문하기</button>
         </Col>
-      </Row>
+    </Row>
+    <Nav variant="tabs"  defaultActiveKey="link0">
+        <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(0)}} eventKey="link0">버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(1)}} eventKey="link1">버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+            <Nav.Link onClick={()=>{setTab(2)}} eventKey="link2">버튼2</Nav.Link>
+        </Nav.Item>
+    </Nav>
+    <TabContent tab={tab}/> 
     </Container>
   );
 }
+
+function TabContent(props){
+    if (props.tab === 0){
+        return <div>내용0</div>
+    }
+    if (props.tab === 1){
+        return <div>내용1</div>
+    }
+    if (props.tab === 2){
+        return <div>내용2</div>
+    }
+  }
 
 export default Detail;
