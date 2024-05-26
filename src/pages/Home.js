@@ -4,20 +4,22 @@ import data from "../data";
 import Card from "../components/Card";
 import axios from "axios";
 
-function Home(props) {
+function Home({ shoes, setShoes }) {
     return (
         <div> <div className="main-bg"></div>
         <Container>
           <Row>
-            {props.shoes.map((a, i) => { return <Card shoes={props.shoes[i]} i={i} />;})}  {/*props 전달*/}
+            {shoes.map((a, i) => { return <Card shoes={shoes[i]} i={i} />;})}  {/*props 전달*/}
           </Row>
         </Container>
         <button onClick={()=>{axios.get('https://codingapple1.github.io/shop/data2.json')
         .then((result)=>{
             console.log(result.data)
-            let copy = [...props.shoes, ...result.data];
-            }).catch(()=>console.log('실패'))
-            }}>버튼</button>
+            let copy = [...shoes, ...result.data];
+            console.log(copy)
+            setShoes(copy);  // setShoes 사용
+            }).catch((error)=>console.error('데이터 요청 실패: ', error))
+            }}>더보기</button>
       </div>
     );
   }
