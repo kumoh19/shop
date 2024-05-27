@@ -9,6 +9,7 @@ import About from "./pages/About.js";
 import Card from "./components/Card.jsx";
 import Event from "./pages/Event.js";
 import Home from "./pages/Home.js";
+import Cart from "./pages/Cart.js";
 
 //Context API 사용
 export let Context1 = createContext() //Context: state 보관함
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home shoes={shoes} setShoes={setShoes}/>}/>
         <Route path="/detail/:id" element={<Context1.Provider value={{stock}}><Detail shoes={shoes} /></Context1.Provider>} />
+        <Route path="/cart" element={ <Cart/> } /> 
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버</div>} />
           <Route path="location" element={<div>위치</div>} />
