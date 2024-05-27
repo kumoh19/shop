@@ -4,7 +4,7 @@ function Card(props) {
   return (
     <Col>
       <img
-        src={process.env.PUBLIC_URL + "/zzang" + (props.i + 1) + ".png"} 
+        src={process.env.PUBLIC_URL + "/zzang" + ((props.i % 3) + 1) + ".png"} 
         width="80%"
       />
       <h4>{props.shoes.title}</h4>

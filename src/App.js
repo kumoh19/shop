@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
-import { useState } from "react";
+import { createContext, useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Detail from "./pages/Detail.js";
@@ -10,16 +10,19 @@ import Card from "./components/Card.jsx";
 import Event from "./pages/Event.js";
 import Home from "./pages/Home.js";
 
+//Context API 사용
+export let Context1 = createContext() //Context: state 보관함
+
 function App() {
   let [shoes, setShoes] = useState(data);
-  console.log(shoes);
+  let [stock] = useState([10, 11, 12]) //Detail, TabContent에서 사용하고 싶음
 
   return (
     <div className="App">
       <Header />
       <Routes>
         <Route path="/" element={<Home shoes={shoes} setShoes={setShoes}/>}/>
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={<Context1.Provider value={{stock}}><Detail shoes={shoes} /></Context1.Provider>} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버</div>} />
           <Route path="location" element={<div>위치</div>} />

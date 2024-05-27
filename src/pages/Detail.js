@@ -1,8 +1,9 @@
 import { tab } from "@testing-library/user-event/dist/tab";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Context1 } from "../App";
 
 //styled-components 연습
 let YellowBtn = styled.button`
@@ -17,6 +18,9 @@ let Box = styled.div`
 `;
 
 function Detail(props) {
+
+  let {stock} = useContext(Context1) //보관함 해체
+
   let { id } = useParams(); 
   //page의 파라미터 값 가져오는 훅, ...URL/user/1 user는 pathname, 1은 parameter
   let product = props.shoes.find(function (x) {
@@ -83,21 +87,37 @@ function Detail(props) {
             <Nav.Link onClick={()=>{setTab(2)}} eventKey="link2">버튼2</Nav.Link>
         </Nav.Item>
     </Nav>
-    <TabContent tab={tab}/> 
+    <TabContent tab={tab} shoes={props.shoes}/> 
     </Container>
   );
 }
 
-function TabContent(props){
-    if (props.tab === 0){
-        return <div>내용0</div>
+// function TabContent(props){ //prop대신 {tab} 넣으면 props.tab->tab으로 사용가능
+//     if (props.tab === 0){
+//         return <div>내용0</div>
+//     }
+//     if (props.tab === 1){
+//         return <div>내용1</div>
+//     }
+//     if (props.tab === 2){
+//         return <div>내용2</div>
+//     }
+//   }
+
+function TabContent({tab, shoes}){ 
+  let [fade, setFade] = useState('')
+  let {stock} = useContext(Context1) //보관함 해체
+
+  useEffect(()=>{// 탭 state가 변할 때 end 부착
+    setTimeout(()=>{setFade('end')},100)
+    
+    return()=>{
+      setFade('')
     }
-    if (props.tab === 1){
-        return <div>내용1</div>
-    }
-    if (props.tab === 2){
-        return <div>내용2</div>
-    }
+  },[tab])
+    return (<div className={'start '+ fade}>
+      {[<div>{stock}</div>,<div>내용1</div>,<div>내용2</div>][tab]}
+    </div>)
   }
 
 export default Detail;
