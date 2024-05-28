@@ -4,6 +4,8 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Context1 } from "../App";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store";
 
 //styled-components 연습
 let YellowBtn = styled.button`
@@ -49,7 +51,7 @@ function Detail(props) {
   //------------------------------탭 ui----------------------------------------
     let [tab, setTab] = useState(0)
 
-
+    let dispatch = useDispatch()
   return (
     <Container>
       {/* <Box>
@@ -73,7 +75,7 @@ function Detail(props) {
         <h4>{product.title}</h4>
         <p>{product.content}</p>
         <p>{product.price}</p>
-        <button className="btn btn-danger">주문하기</button>
+        <button className="btn btn-danger" onClick={() => dispatch(addItem( { id: product.id, name: product.title, count: 1 } ))}>주문하기</button>
         </Col>
     </Row>
     <Nav variant="tabs"  defaultActiveKey="link0">
