@@ -1,8 +1,25 @@
 import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { changeName } from "../store";
 
 function Cart() {
+  let state = useSelector((state) => {
+    return state;
+  }); //redux: prop없이 state전송가능
+  let dispatch = useDispatch()
+  // let suser = useSelector((state) => {
+  //   return state.user;
+  // });
+  // let sstock = useSelector((state) => {
+  //   return state.stock;
+  // });
+  // console.log(state);
+  // console.log(suser);
+  // console.log(sstock);
+
   return (
     <div>
+      {state.user}의 장바구니
       <Table>
         <thead>
           <tr>
@@ -13,12 +30,14 @@ function Cart() {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>안녕</td>
-            <td>안녕</td>
-            <td>안녕</td>
-          </tr>
+          {state.cart.map((a, i) => (
+            <tr key={i}>
+              <td>1</td>
+              <td>{state.cart[i].name}</td>
+              <td>{state.cart[i].count}</td>
+              <td><button onClick={()=>{dispatch(changeName())}}>+</button></td>
+            </tr>
+          ))}
         </tbody>
       </Table>
     </div>
