@@ -38,6 +38,7 @@ useEffect(() => {
     // 기존 데이터 요청 제거 코드
   }
 }, []);
+```
 
 ## 에러 해결
 - alert is not a function TypeError: alert is not a function 오류 발생 시 window.alert로 변경하여 해결.
@@ -56,7 +57,7 @@ useEffect(() => {
 - **해결 방법**:
   1. **Context API**: 리액트 기본 문법이나 실무에서 잘 사용하지 않음.
   2. **Redux** 등 외부 라이브러리 사용.
-  
+
 ## Redux 사용법
 1. `npm install @reduxjs/toolkit react-redux` 설치.
 2. `store.js` 파일 생성.
