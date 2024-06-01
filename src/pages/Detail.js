@@ -52,6 +52,17 @@ function Detail(props) {
     let [tab, setTab] = useState(0)
 
     let dispatch = useDispatch()
+
+  //------------------------------최근 본 상품----------------------------------------
+
+  useEffect(() => {
+    let isWatched = JSON.parse(localStorage.getItem('watched'));
+    isWatched.push(product.id);
+    isWatched = new Set(isWatched);
+    isWatched = Array.from(isWatched);
+    localStorage.setItem('watched', JSON.stringify(isWatched));
+  }, []);
+
   return (
     <Container>
       {/* <Box>

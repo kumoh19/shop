@@ -70,3 +70,54 @@ useEffect(() => {
 1. State를 수정해주는 함수 만들기.
 2. store.js에 해당 함수 실행 요청 (`export`).
 3. `Dispatch`로 state 변경 함수 호출.
+
+## Local Storage vs Session Storage
+
+### Local Storage
+- **Key : value** 형태로 저장 가능 `{name:kim}`
+- 최대 5MB 문자까지만 저장 가능
+- 사이트 재 접속해도 남아 있음 (브라우저 청소하면 삭제됨)
+
+**사용법**
+- 저장: `localStorage.setItem('이름', '값')`
+- 출력: `localStorage.getItem('이름')`
+- 삭제: `localStorage.removeItem('이름')`
+- 수정: 꺼내서 수정 후 다시 저장
+
+**Array/Object 저장 방법**
+- 직접 저장 불가. JSON으로 변환 후 저장: `JSON.stringify(arrayOrObject)`
+
+### Session Storage
+- 브라우저를 끄면 데이터 날아감
+
+## React-query
+- 설치: `npm install react-query`
+
+## Lazy Import
+리액트 코드 빌드 시, 모든 컴포넌트가 하나의 파일로 묶여 로딩 속도가 느려질 수 있음.
+
+**해결 방법**
+- 필요할 때만 import: `React.lazy`
+- 예시:
+  ```javascript
+  const Detail = React.lazy(() => import('./Detail'));
+  const Cart = React.lazy(() => import('./Cart'));
+  ```
+- 이렇게 하면 해당 컴포넌트가 필요할 때만 로드하여 초기 로딩 속도 개선
+
+## Memo
+
+컴포넌트의 불필요한 재렌더링을 방지. props가 변할 때만 재렌더링함.
+
+### 사용법
+1. `memo`를 import.
+2. 원하는 컴포넌트를 `memo`로 감싸서 정의.
+
+### 예시
+```javascript
+import React, { memo } from 'react';
+
+const MyComponent = memo(function MyComponent(props) {
+  // 컴포넌트 내용
+});
+```
